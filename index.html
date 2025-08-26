@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار السيرة النبوية - 25 سؤالاً</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #1a5e25 0%, #0d8b2c 100%);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            margin: 20px auto;
+            position: relative;
+        }
+        
+        header {
+            background: linear-gradient(to right, #0d8b2c, #1a5e25);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .timer {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .timer.warning {
+            background: rgba(255, 165, 0, 0.3);
+            color: #ffcc00;
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .progress-container {
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            height: 12px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background-color: #fff;
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .question-count {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .question-container {
+            padding: 30px;
+        }
+        
+        .question {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a5e25;
+            margin-bottom: 30px;
+            text-align: center;
+            line-height: 1.5;
+            padding: 15px;
+            background-color: #f8fff9;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .answers {
+            display: grid;
+            grid-gap: 15px;
+        }
+        
+        .answer-btn {
+            background-color: #f0f9ff;
+            border: 2px solid #0d8b2c;
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a5e25;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: right;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .answer-btn:hover {
+            background-color: #e0f3e8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(13, 139, 44, 0.2);
+        }
+        
+        .answer-btn.correct {
+            background-color: #4CAF50;
+            color: white;
+            border-color: #388E3C;
+        }
+        
+        .answer-btn.incorrect {
+            background-color: #F44336;
+            color: white;
+            border-color: #D32F2F;
+        }
+        
+        .feedback {
+            text-align: center;
+            padding: 10px;
+            margin-top: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: none;
+        }
+        
+        .feedback.correct {
+            background-color: #E8F5E9;
+            color: #2E7D32;
+            display: block;
+        }
+        
+        .feedback.incorrect {
+            background-color: #FFEBEE;
+            color: #C62828;
+            display: block;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-next {
+            background: linear-gradient(to right, #0d8b2c, #1a5e25);
+            color: white;
+        }
+        
+        .btn-next:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-restart {
+            background: linear-gradient(to right, #FF9800, #F57C00);
+            color: white;
+        }
+        
+        .btn-restart:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .results-container {
+            padding: 30px;
+            text-align: center;
+            display: none;
+        }
+        
+        .score-text {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #1a5e25;
+        }
+        
+        .score-value {
+            font-size: 72px;
+            font-weight: bold;
+            color: #0d8b2c;
+            margin: 20px 0;
+        }
+        
+        .score-circle {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto;
+            border-radius: 50%;
+            background: #f8fff9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            border: 5px solid #0d8b2c;
+        }
+        
+        .score-details {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8fff9;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .score-details p {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+        
+        .start-screen {
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .app-title {
+            font-size: 36px;
+            color: #1a5e25;
+            margin-bottom: 20px;
+        }
+        
+        .app-description {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #555;
+        }
+        
+        .btn-start {
+            background: linear-gradient(to right, #0d8b2c, #1a5e25);
+            color: white;
+            padding: 15px 40px;
+            font-size: 20px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .btn-start:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .feature {
+            background-color: #f8fff9;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .feature i {
+            font-size: 24px;
+            color: #0d8b2c;
+            margin-bottom: 10px;
+        }
+        
+        .question-number {
+            background-color: #0d8b2c;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin: 0 auto 15px;
+        }
+        
+        .questions-progress {
+            display: flex;
+            justify-content: center;
+            margin: 15px 0;
+            gap: 5px;
+        }
+        
+        .progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #ddd;
+            transition: background-color 0.3s ease;
+        }
+        
+        .progress-dot.active {
+            background-color: #0d8b2c;
+        }
+        
+        .progress-dot.answered {
+            background-color: #4CAF50;
+        }
+        
+        .settings-panel {
+            background-color: #f8fff9;
+            padding: 15px;
+            border-radius: 12px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .setting-item {
+            margin: 10px 0;
+        }
+        
+        .setting-item label {
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        .certificate {
+            text-align: center;
+            padding: 20px;
+            background: #f8fff9;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 2px dashed #0d8b2c;
+        }
+        
+        .certificate h3 {
+            color: #1a5e25;
+            margin-bottom: 15px;
+        }
+        
+        .certificate-content {
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+        
+        .ranking-badge {
+            display: inline-block;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .ranking-gold {
+            background: linear-gradient(to right, #FFD700, #DAA520);
+            color: #704214;
+        }
+        
+        .ranking-silver {
+            background: linear-gradient(to right, #C0C0C0, #A9A9A9);
+            color: #505050;
+        }
+        
+        .ranking-bronze {
+            background: linear-gradient(to right, #CD7F32, #8C6B46);
+            color: #412F22;
+        }
+        
+        .audio-control {
+            display: flex;
+            justify-content: center;
+            margin: 15px 0;
+        }
+        
+        .audio-btn {
+            background-color: #0d8b2c;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .audio-btn:hover {
+            transform: scale(1.1);
+            background-color: #1a5e25;
+        }
+        
+        .resume-btn {
+            background: linear-gradient(to right, #2196F3, #0D47A1);
+            color: white;
+        }
+        
+        .save-score {
+            background: linear-gradient(to right, #9C27B0, #6A1B9A);
+            color: white;
+            margin-left: 10px;
+        }
+        
+        .saved-scores {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8fff9;
+            border-radius: 12px;
+        }
+        
+        .score-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        /* إضافات جديدة للويب */
+        .language-switcher {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            z-index: 100;
+        }
+        
+        .lang-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .share-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .share-btn {
+            background: #3b5998;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .share-btn.twitter {
+            background: #1da1f2;
+        }
+        
+        .share-btn.whatsapp {
+            background: #25d366;
+        }
+        
+        .hint-system {
+            text-align: center;
+            margin: 15px 0;
+        }
+        
+        .hint-btn {
+            background: #ff9800;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .hint-text {
+            background: #fff3e0;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+            display: none;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: #f5f5f5;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        footer a {
+            color: #0d8b2c;
+            text-decoration: none;
+        }
+        
+        @media (max-width: 768px) {
+            .feature-list {
+                grid-template-columns: 1fr;
+            }
+            
+            header h1 {
+                font-size: 22px;
+            }
+            
+            .question {
+                font-size: 18px;
+            }
+            
+            .answer-btn {
+                font-size: 16px;
+                padding: 14px;
+            }
+            
+            .timer {
+                position: relative;
+                left: auto;
+                top: auto;
+                margin-bottom: 15px;
+                justify-content: center;
+            }
+            
+            .score-value {
+                font-size: 50px;
+            }
+            
+            .score-circle {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .controls {
+                flex-wrap: wrap;
+            }
+            
+            .btn {
+                margin-bottom: 10px;
+            }
+            
+            .language-switcher {
+                position: relative;
+                top: auto;
+                left: auto;
+                margin-bottom: 15px;
+                text-align: center;
+            }
+            
+            .share-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="language-switcher">
+        <button class="lang-btn" id="lang-btn">EN</button>
+    </div>
+    
+    <div class="container">
+        <div class="start-screen" id="start-screen">
+            <h1 class="app-title">اختبار السيرة النبوية - 25 سؤالاً</h1>
+            <p class="app-description">
+                اختبر معلوماتك حول سيرة نبينا محمد صلى الله عليه وسلم من خلال هذا التطبيق التفاعلي. 
+                يحتوي التطبيق على 25 سؤالاً متنوعاً لتقييم معرفتك بالسيرة النبوية الشريفة.
+            </p>
+            
+            <div class="settings-panel">
+                <h3>إعدادات الاختبار</h3>
+                <div class="setting-item">
+                    <label for="timer-enabled">تفعيل المؤقت:</label>
+                    <input type="checkbox" id="timer-enabled" checked>
+                </div>
+                <div class="setting-item">
+                    <label for="audio-enabled">التلقين الصوتي:</label>
+                    <input type="checkbox" id="audio-enabled">
+                </div>
+                <div class="setting-item">
+                    <label for="hint-enabled">تفعيل نظام التلميحات:</label>
+                    <input type="checkbox" id="hint-enabled">
+                </div>
+            </div>
+            
+            <div class="feature-list">
+                <div class="feature">
+                    <i class="fas fa-clock"></i>
+                    <h3>مؤقت الاختبار</h3>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-chart-bar"></i>
+                    <h3>تقييم الأداء</h3>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-question-circle"></i>
+                    <h3>25 سؤالاً متنوعاً</h3>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-trophy"></i>
+                    <h3>شهادة النتيجة</h3>
+                </div>
+            </div>
+            
+            <div id="resume-section" style="display: none; margin: 20px 0;">
+                <p>هناك اختبار غير مكتمل. هل تريد متابعته؟</p>
+                <button class="btn resume-btn" id="resume-btn">
+                    متابعة الاختبار السابق
+                    <i class="fas fa-play"></i>
+                </button>
+            </div>
+            
+            <button class="btn-start" id="start-btn">
+                ابدأ الاختبار الآن
+                <i class="fas fa-arrow-left"></i>
+            </button>
+        </div>
+        
+        <div id="quiz-container" style="display: none;">
+            <header>
+                <div class="timer" id="timer">
+                    <i class="fas fa-clock"></i>
+                    <span id="time">05:00</span>
+                </div>
+                <h1>اختبار السيرة النبوية</h1>
+                <div class="progress-container">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+                <div class="question-count" id="question-count">السؤال 1 من 25</div>
+                <div class="questions-progress" id="questions-progress"></div>
+            </header>
+            
+            <div class="question-container">
+                <div class="audio-control" id="audio-control" style="display: none;">
+                    <button class="audio-btn" id="play-audio">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                </div>
+                
+                <div class="hint-system" id="hint-system" style="display: none;">
+                    <button class="hint-btn" id="hint-btn">
+                        <i class="fas fa-lightbulb"></i> الحصول على تلميح
+                    </button>
+                    <div class="hint-text" id="hint-text"></div>
+                </div>
+                
+                <div class="question-number" id="question-number">1</div>
+                <div class="question" id="question"></div>
+                <div class="answers" id="answers"></div>
+                <div class="feedback" id="feedback"></div>
+            </div>
+            
+            <div class="controls">
+                <button class="btn btn-next" id="next-btn">
+                    التالي
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <button class="btn save-score" id="save-btn" style="display: none;">
+                    حفظ التقدم
+                    <i class="fas fa-save"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="results-container" id="results-container">
+            <h2 class="score-text">نتيجتك في اختبار السيرة النبوية</h2>
+            <div class="score-circle">
+                <div class="score-value" id="score-value">0%</div>
+            </div>
+            <div class="score-details">
+                <p id="correct-answers">الإجابات الصحيحة: 0/25</p>
+                <p id="score-message"></p>
+                <div id="ranking-badge"></div>
+            </div>
+            
+            <div class="certificate">
+                <h3>شهادة إنجاز</h3>
+                <div class="certificate-content">
+                    <p>هذه الشهادة تمنح إلى:</p>
+                    <h4 id="user-name">المستخدم</h4>
+                    <p>لإكماله اختبار السيرة النبوية بنجاح</p>
+                    <p>بتقدير: <span id="certificate-score">0%</span></p>
+                    <p>في تاريخ: <span id="certificate-date"></span></p>
+                </div>
+                <button class="btn btn-restart" id="download-certificate">
+                    تحميل الشهادة
+                    <i class="fas fa-download"></i>
+                </button>
+            </div>
+            
+            <div class="share-buttons">
+                <button class="share-btn" id="share-facebook">
+                    <i class="fab fa-facebook"></i> مشاركة على فيسبوك
+                </button>
+                <button class="share-btn twitter" id="share-twitter">
+                    <i class="fab fa-twitter"></i> مشاركة على تويتر
+                </button>
+                <button class="share-btn whatsapp" id="share-whatsapp">
+                    <i class="fab fa-whatsapp"></i> مشاركة على واتساب
+                </button>
+            </div>
+            
+            <div class="saved-scores">
+                <h3>أفضل النتائج السابقة</h3>
+                <div id="high-scores-list"></div>
+            </div>
+            
+            <div class="controls">
+                <button class="btn btn-restart" id="restart-btn">
+                    اعادة الاختبار
+                    <i class="fas fa-redo"></i>
+                </button>
+                <button class="btn btn-next" id="review-btn">
+                    مراجعة الأسئلة
+                    <i class="fas fa-book-open"></i>
+                </button>
+            </div>
+        </div>
+        
+        <footer>
+            <p>تم تطوير هذا المشروع بواسطة <a href="#"> عمر يحي سيلان  / مازن عبدالله حداد</a> | جميع الحقوق محفوظة &copy; 2025</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // عناصر DOM
+            const startScreen = document.getElementById('start-screen');
+            const quizContainer = document.getElementById('quiz-container');
+            const resultsContainer = document.getElementById('results-container');
+            const startBtn = document.getElementById('start-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const restartBtn = document.getElementById('restart-btn');
+            const resumeBtn = document.getElementById('resume-btn');
+            const resumeSection = document.getElementById('resume-section');
+            const saveBtn = document.getElementById('save-btn');
+            const questionElement = document.getElementById('question');
+            const questionNumberElement = document.getElementById('question-number');
+            const answersElement = document.getElementById('answers');
+            const feedbackElement = document.getElementById('feedback');
+            const progressBar = document.getElementById('progress-bar');
+            const questionCountElement = document.getElementById('question-count');
+            const timeElement = document.getElementById('time');
+            const timerElement = document.getElementById('timer');
+            const scoreValueElement = document.getElementById('score-value');
+            const scoreMessageElement = document.getElementById('score-message');
+            const correctAnswersElement = document.getElementById('correct-answers');
+            const questionsProgressElement = document.getElementById('questions-progress');
+            const rankingBadgeElement = document.getElementById('ranking-badge');
+            const timerEnabledCheckbox = document.getElementById('timer-enabled');
+            const audioEnabledCheckbox = document.getElementById('audio-enabled');
+            const audioControl = document.getElementById('audio-control');
+            const playAudioBtn = document.getElementById('play-audio');
+            const downloadCertificateBtn = document.getElementById('download-certificate');
+            const highScoresList = document.getElementById('high-scores-list');
+            const userNameElement = document.getElementById('user-name');
+            const certificateScoreElement = document.getElementById('certificate-score');
+            const certificateDateElement = document.getElementById('certificate-date');
+            
+            // عناصر DOM الجديدة
+            const hintSystem = document.getElementById('hint-system');
+            const hintBtn = document.getElementById('hint-btn');
+            const hintText = document.getElementById('hint-text');
+            const hintEnabledCheckbox = document.getElementById('hint-enabled');
+            const langBtn = document.getElementById('lang-btn');
+            const shareFacebookBtn = document.getElementById('share-facebook');
+            const shareTwitterBtn = document.getElementById('share-twitter');
+            const shareWhatsappBtn = document.getElementById('share-whatsapp');
+            const reviewBtn = document.getElementById('review-btn');
+            
+            // أسئلة الاختبار (25 سؤالاً)
+            const questions = [
+                {
+                    question: "كم كان عمر النبي صلى الله عليه وسلم عندما بُعث بالرسالة؟",
+                    answers: ["25 سنة", "30 سنة", "40 سنة", "45 سنة"],
+                    correctIndex: 2,
+                    hint: "كان النبي صلى الله عليه وسلم يبلغ من العمر 40 سنة عند نزول الوحي عليه"
+                },
+                {
+                    question: "من هي أول زوجة تزوجها النبي صلى الله عليه وسلم؟",
+                    answers: ["عائشة رضي الله عنها", "خديجة رضي الله عنها", "سودة رضي الله عنها", "حفصة رضي الله عنها"],
+                    correctIndex: 1,
+                    hint: "هي أم المؤمنين وكانت تاجرة ذات مال وشرف"
+                },
+                {
+                    question: "كم سنة استمرت الدعوة الإسلامية في مكة قبل الهجرة؟",
+                    answers: ["10 سنوات", "13 سنة", "15 سنة", "20 سنة"],
+                    correctIndex: 1,
+                    hint: "قضى النبي صلى الله عليه وسلم 13 سنة في مكة يدعو إلى الإسلام قبل الهجرة إلى المدينة"
+                },
+                {
+                    question: "أين ولد النبي صلى الله عليه وسلم؟",
+                    answers: ["المدينة المنورة", "مكة المكرمة", "الطائف", "ينبع"],
+                    correctIndex: 1,
+                    hint: "ولد النبي صلى الله عليه وسلم في مكة المكرمة في عام الفيل"
+                },
+                {
+                    question: "من هو أول من آمن برسالة النبي صلى الله عليه وسلم من الرجال؟",
+                    answers: ["أبو بكر الصديق", "علي بن أبي طالب", "عمر بن الخطاب", "زيد بن حارثة"],
+                    correctIndex: 1,
+                    hint: "هو ابن عم النبي صلى الله عليه وسلم وكان يعيش في بيته"
+                },
+                {
+                    question: "ما هي معجزة النبي صلى الله عليه وسلم الخالدة؟",
+                    answers: ["شق القمر", "الإسراء والمعراج", "القرآن الكريم", "نبع الماء من بين أصابعه"],
+                    correctIndex: 2,
+                    hint: "هي المعجزة التي تتحدى البشر إلى يوم القيامة"
+                },
+                {
+                    question: "كم عدد أولاد النبي صلى الله عليه وسلم؟",
+                    answers: ["ثلاثة أولاد وأربع بنات", "ولدان وثلاث بنات", "أربعة أولاد وثلاث بنات", "ثلاثة أولاد وثلاث بنات"],
+                    correctIndex: 0,
+                    hint: "كان للنبي صلى الله عليه وسلم ثلاثة أبناء: القاسم وعبد الله وإبراهيم، وأربع بنات: زينب ورقية وأم كلثوم وفاطمة"
+                },
+                {
+                    question: "ما اسم والد النبي صلى الله عليه وسلم؟",
+                    answers: ["عبد المطلب", "عبد الله", "أبو طالب", "حمزة"],
+                    correctIndex: 1,
+                    hint: "توفي والد النبي صلى الله عليه وسلم قبل ولادته"
+                },
+                {
+                    question: "ما اسم أم النبي صلى الله عليه وسلم؟",
+                    answers: ["فاطمة بنت أسد", "آمنة بنت وهب", "حليمة السعدية", "خديجة بنت خويلد"],
+                    correctIndex: 1,
+                    hint: "توفيت أم النبي صلى الله عليه وسلم وهو في السادسة من عمره"
+                },
+                {
+                    question: "كم مرة حج النبي صلى الله عليه وسلم في حياته؟",
+                    answers: ["مرة واحدة", "مرتان", "ثلاث مرات", "أربع مرات"],
+                    correctIndex: 0,
+                    hint: "حج النبي صلى الله عليه وسلم حجة واحدة وهي حجة الوداع"
+                },
+                {
+                    question: "ما هي الغزوة التي أسر فيها النبي صلى الله عليه وسلم؟",
+                    answers: ["غزوة أحد", "غزوة بدر", "غزوة الخندق", "لم يُأسَر النبي قط"],
+                    correctIndex: 3,
+                    hint: "لم يُأسَر النبي صلى الله عليه وسلم في أي غزوة من الغزوات"
+                },
+                {
+                    question: "ما هي أول غزوة غزاها النبي صلى الله عليه وسلم؟",
+                    answers: ["غزوة بدر", "غزوة أحد", "غزوة الأبواء", "غزوة الخندق"],
+                    correctIndex: 2,
+                    hint: "هي غزوة ودان وتسمى أيضاً غزوة الأبواء وحدثت في السنة الثانية للهجرة"
+                },
+                {
+                    question: "من هو الصحابي الذي لقب بسيف الله المسلول؟",
+                    answers: ["عمر بن الخطاب", "علي بن أبي طالب", "خالد بن الوليد", "حمزة بن عبد المطلب"],
+                    correctIndex: 2,
+                    hint: "هو قائد عسكري مسلم قاد العديد من الفتوحات الإسلامية"
+                },
+                {
+                    question: "كم مكث النبي صلى الله عليه وسلم في مكة بعد البعثة؟",
+                    answers: ["10 سنوات", "13 سنة", "15 سنة", "18 سنة"],
+                    correctIndex: 1,
+                    hint: "قضى النبي صلى الله عليه وسلم 13 سنة في مكة بعد البعثة قبل الهجرة إلى المدينة"
+                },
+                {
+                    question: "ما هي السورة التي تسمى بسورة النبي؟",
+                    answers: ["سورة الفتح", "سورة الأحزاب", "سورة التحريم", "سورة العلق"],
+                    correctIndex: 1,
+                    hint: "هي سورة مدنية وعدد آياتها 73 آية"
+                },
+                {
+                    question: "من هو النبي الذي سماه النبي صلى الله عليه وسلم بالأمين؟",
+                    answers: ["أبو بكر الصديق", "علي بن أبي طالب", "عثمان بن عفان", "لم يسمِّ النبي أحداً بهذا اللقب"],
+                    correctIndex: 3,
+                    hint: "لم يثبت أن النبي صلى الله عليه وسلم لقب أي أحد بلقب الأمين"
+                },
+                {
+                    question: "ما اسم ناقة النبي صلى الله عليه وسلم؟",
+                    answers: ["العضباء", "القصواء", "الجدعاء", "اليعفور"],
+                    correctIndex: 1,
+                    hint: "هي الناقة التي كان يركبها النبي صلى الله عليه وسلم في الهجرة"
+                },
+                {
+                    question: "من الذي أعتقه النبي صلى الله عليه وسلم؟",
+                    answers: ["زيد بن حارثة", "بلال بن رباح", "ثابت بن قيس", "جميع ما سبق"],
+                    correctIndex: 3,
+                    hint: "أعتق النبي صلى الله عليه وسلم العديد من الرقيق منهم زيد وبلال وثابت"
+                },
+                {
+                    question: "ما هي كنية النبي صلى الله عليه وسلم؟",
+                    answers: ["أبو القاسم", "أبو إبراهيم", "كلاهما صحيح", "ليس له كنية"],
+                    correctIndex: 2,
+                    hint: "كنيته أبو القاسم وأبو إبراهيم"
+                },
+                {
+                    question: "كم كان عمر النبي صلى الله عليه وسلم عندما توفيت أمه؟",
+                    answers: ["4 سنوات", "6 سنوات", "8 سنوات", "10 سنوات"],
+                    correctIndex: 1,
+                    hint: "توفيت أم النبي صلى الله عليه وسلم وهو في السادسة من عمره"
+                },
+                {
+                    question: "ما هو اسم الصحابي الذي دفع الشجرة عن النبي صلى الله عليه وسلم؟",
+                    answers: ["أبو بكر الصديق", "عمر بن الخطاب", "علي بن أبي طالب", "لم تحدث هذه القصة"],
+                    correctIndex: 0,
+                    hint: "هو أول الخلفاء الراشدين وأحد العشرة المبشرين بالجنة"
+                },
+                {
+                    question: "من هو الصحابي الذي اهتز لموته عرش الرحمن؟",
+                    answers: ["أبو بكر الصديق", "عمر بن الخطاب", "عثمان بن عفان", "سعد بن معاذ"],
+                    correctIndex: 3,
+                    hint: "هو صحابي جليل من الأنصار استشهد في غزوة الخندق"
+                },
+                {
+                    question: "ما هي آخر غزوة غزاها النبي صلى الله عليه وسلم؟",
+                    answers: ["غزوة تبوك", "غزوة حنين", "غزوة الطائف", "غزوة مؤتة"],
+                    correctIndex: 0,
+                    hint: "هي آخر الغزوات التي خاضها النبي صلى الله عليه وسلم وحدثت في السنة التاسعة للهجرة"
+                },
+                {
+                    question: "كم كان عمر النبي صلى الله عليه وسلم عندما توفي؟",
+                    answers: ["60 سنة", "63 سنة", "65 سنة", "67 سنة"],
+                    correctIndex: 1,
+                    hint: "توفي النبي صلى الله عليه وسلم في الثالثة والستين من عمره"
+                },
+                {
+                    question: "من هو الذي صلى النبي صلى الله عليه وسلم عليه صلاة الغائب؟",
+                    answers: ["النجاشي", "عمران بن حصين", "جعفر بن أبي طالب", "زيد بن حارثة"],
+                    correctIndex: 0,
+                    hint: "هو ملك الحبشة وأسلم على يد الصحابة الذين هاجروا إلى الحبشة"
+                }
+            ];
+            
+            let currentQuestionIndex = 0;
+            let score = 0;
+            let timeLeft = 300; // 5 دقائق
+            let timerInterval;
+            let answeredQuestions = Array(questions.length).fill(false);
+            let userName = "المستخدم";
+            let highScores = [];
+            
+            // تهيئة التطبيق
+            function initApp() {
+                loadHighScores();
+                checkSavedProgress();
+                
+                // طلب اسم المستخدم إذا كان أول استخدام
+                if (!localStorage.getItem('userName')) {
+                    userName = prompt("ما هو اسمك؟") || "المستخدم";
+                    localStorage.setItem('userName', userName);
+                } else {
+                    userName = localStorage.getItem('userName');
+                }
+                
+                userNameElement.textContent = userName;
+                
+                // تحديث قائمة أفضل النتائج
+                updateHighScoresList();
+                
+                // إعداد نظام التلميحات
+                hintEnabledCheckbox.addEventListener('change', function() {
+                    hintSystem.style.display = this.checked ? 'block' : 'none';
+                });
+                
+                hintBtn.addEventListener('click', showHint);
+                
+                // إعداد تبديل اللغة
+                let currentLang = 'ar';
+                langBtn.addEventListener('click', function() {
+                    currentLang = currentLang === 'ar' ? 'en' : 'ar';
+                    langBtn.textContent = currentLang === 'ar' ? 'EN' : 'AR';
+                    
+                    // في التطبيق الحقيقي، هنا سيتم تحميل النصوص بلغة مختلفة
+                    alert('سيتم تبديل اللغة إلى ' + (currentLang === 'ar' ? 'العربية' : 'English'));
+                });
+                
+                // إعداد أزرار المشاركة
+                shareFacebookBtn.addEventListener('click', function() {
+                    shareOnSocialMedia('facebook');
+                });
+                
+                shareTwitterBtn.addEventListener('click', function() {
+                    shareOnSocialMedia('twitter');
+                });
+                
+                shareWhatsappBtn.addEventListener('click', function() {
+                    shareOnSocialMedia('whatsapp');
+                });
+                
+                // إعداد زر المراجعة
+                reviewBtn.addEventListener('click', function() {
+                    alert('سيتم تطوير هذه الميزة في نسخة لاحقة لعرض جميع الأسئلة وإجاباتك عليها');
+                });
+            }
+            
+            function showHint() {
+                const question = questions[currentQuestionIndex];
+                hintText.textContent = question.hint || "لا توجد تلميحات متاحة لهذا السؤال";
+                hintText.style.display = 'block';
+                
+                // تعطيل زر التلميح بعد استخدامه
+                hintBtn.disabled = true;
+            }
+            
+            function shareOnSocialMedia(platform) {
+                const percentage = Math.round((score / questions.length) * 100);
+                const text = `حصلت على ${percentage}% في اختبار السيرة النبوية! جرب أنت أيضاً:`;
+                const url = window.location.href;
+                
+                let shareUrl = '';
+                
+                switch(platform) {
+                    case 'facebook':
+                        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(text)}`;
+                        break;
+                    case 'twitter':
+                        shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+                        break;
+                    case 'whatsapp':
+                        shareUrl = `https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`;
+                        break;
+                }
+                
+                window.open(shareUrl, '_blank');
+            }
+            
+            // باقي الدوال كما هي (startQuiz, resumeQuiz, checkSavedProgress, ...)
+            // بدء الاختبار
+            startBtn.addEventListener('click', startQuiz);
+            restartBtn.addEventListener('click', restartQuiz);
+            nextBtn.addEventListener('click', nextQuestion);
+            resumeBtn.addEventListener('click', resumeQuiz);
+            saveBtn.addEventListener('click', saveProgress);
+            playAudioBtn.addEventListener('click', playQuestionAudio);
+            downloadCertificateBtn.addEventListener('click', downloadCertificate);
+            
+            // التحكم في إعدادات الصوت
+            audioEnabledCheckbox.addEventListener('change', function() {
+                audioControl.style.display = this.checked ? 'flex' : 'none';
+            });
+            
+            function startQuiz() {
+                startScreen.style.display = 'none';
+                quizContainer.style.display = 'block';
+                
+                currentQuestionIndex = 0;
+                score = 0;
+                timeLeft = 300;
+                answeredQuestions.fill(false);
+                
+                // تفعيل أو تعطيل المؤقت حسب الإعداد
+                if (timerEnabledCheckbox.checked) {
+                    timerElement.style.display = 'flex';
+                    startTimer();
+                } else {
+                    timerElement.style.display = 'none';
+                    timeLeft = 99999; // وقت غير محدود عملياً
+                }
+                
+                // تفعيل أو تعطيل الصوت حسب الإعداد
+                audioControl.style.display = audioEnabledCheckbox.checked ? 'flex' : 'none';
+                
+                // تفعيل أو تعطيل التلميحات حسب الإعداد
+                hintSystem.style.display = hintEnabledCheckbox.checked ? 'block' : 'none';
+                
+                createProgressDots();
+                updateTimerDisplay();
+                showQuestion();
+                
+                // مسح أي تقدم محفوظ سابقاً
+                localStorage.removeItem('quizProgress');
+            }
+            
+            function resumeQuiz() {
+                const savedProgress = JSON.parse(localStorage.getItem('quizProgress'));
+                if (savedProgress) {
+                    startScreen.style.display = 'none';
+                    quizContainer.style.display = 'block';
+                    
+                    currentQuestionIndex = savedProgress.currentQuestionIndex;
+                    score = savedProgress.score;
+                    timeLeft = savedProgress.timeLeft;
+                    answeredQuestions = savedProgress.answeredQuestions;
+                    
+                    // تفعيل أو تعطيل المؤقت حسب الإعداد
+                    if (timerEnabledCheckbox.checked) {
+                        timerElement.style.display = 'flex';
+                        startTimer();
+                    } else {
+                        timerElement.style.display = 'none';
+                    }
+                    
+                    // تفعيل أو تعطيل الصوت حسب الإعداد
+                    audioControl.style.display = audioEnabledCheckbox.checked ? 'flex' : 'none';
+                    
+                    // تفعيل أو تعطيل التلميحات حسب الإعداد
+                    hintSystem.style.display = hintEnabledCheckbox.checked ? 'block' : 'none';
+                    
+                    createProgressDots();
+                    updateTimerDisplay();
+                    showQuestion();
+                    
+                    // إظهار زر الحفظ
+                    saveBtn.style.display = 'flex';
+                }
+            }
+            
+            function checkSavedProgress() {
+                const savedProgress = localStorage.getItem('quizProgress');
+                if (savedProgress) {
+                    resumeSection.style.display = 'block';
+                } else {
+                    resumeSection.style.display = 'none';
+                }
+            }
+            
+            function saveProgress() {
+                const progress = {
+                    currentQuestionIndex: currentQuestionIndex,
+                    score: score,
+                    timeLeft: timeLeft,
+                    answeredQuestions: answeredQuestions
+                };
+                
+                localStorage.setItem('quizProgress', JSON.stringify(progress));
+                alert('تم حفظ تقدمك في الاختبار. يمكنك معاودته لاحقاً.');
+            }
+            
+            function createProgressDots() {
+                questionsProgressElement.innerHTML = '';
+                for (let i = 0; i < questions.length; i++) {
+                    const dot = document.createElement('div');
+                    dot.classList.add('progress-dot');
+                    if (i === currentQuestionIndex) dot.classList.add('active');
+                    if (answeredQuestions[i]) dot.classList.add('answered');
+                    questionsProgressElement.appendChild(dot);
+                }
+            }
+            
+            function updateProgressDots() {
+                const dots = questionsProgressElement.querySelectorAll('.progress-dot');
+                dots.forEach((dot, index) => {
+                    dot.classList.remove('active', 'answered');
+                    if (index === currentQuestionIndex) {
+                        dot.classList.add('active');
+                    }
+                    if (answeredQuestions[index]) {
+                        dot.classList.add('answered');
+                    }
+                });
+            }
+            
+            function restartQuiz() {
+                resultsContainer.style.display = 'none';
+                startScreen.style.display = 'block';
+                checkSavedProgress();
+            }
+            
+            function startTimer() {
+                clearInterval(timerInterval);
+                
+                timerInterval = setInterval(function() {
+                    timeLeft--;
+                    updateTimerDisplay();
+                    
+                    // تحذير عندما يقل الوقت عن دقيقة
+                    if (timeLeft === 60) {
+                        timerElement.classList.add('warning');
+                    }
+                    
+                    if (timeLeft <= 0) {
+                        clearInterval(timerInterval);
+                        finishQuiz();
+                    }
+                }, 1000);
+            }
+            
+            function updateTimerDisplay() {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timeElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+            
+            function playQuestionAudio() {
+                // هذه وظيفة تجريبية - يمكن تطويرها باستخدام واجهات Web Speech API
+                const speech = new SpeechSynthesisUtterance(questions[currentQuestionIndex].question);
+                speech.lang = 'ar-SA';
+                speech.rate = 0.9;
+                window.speechSynthesis.speak(speech);
+            }
+            
+            function showQuestion() {
+                const question = questions[currentQuestionIndex];
+                questionElement.textContent = question.question;
+                questionNumberElement.textContent = currentQuestionIndex + 1;
+                
+                // إعادة تمكين زر التلميح
+                hintBtn.disabled = false;
+                hintText.style.display = 'none';
+                
+                // تحديث شريط التقدم
+                const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+                progressBar.style.width = `${progress}%`;
+                
+                // تحديث عداد الأسئلة
+                questionCountElement.textContent = `السؤال ${currentQuestionIndex + 1} من ${questions.length}`;
+                
+                // تحديث نقاط التقدم
+                updateProgressDots();
+                
+                // مسح الإجابات السابقة
+                answersElement.innerHTML = '';
+                
+                // إضافة الإجابات
+                question.answers.forEach((answer, index) => {
+                    const button = document.createElement('button');
+                    button.textContent = answer;
+                    button.classList.add('answer-btn');
+                    button.addEventListener('click', () => selectAnswer(index));
+                    answersElement.appendChild(button);
+                });
+                
+                // إخفاء زر التالي حتى يتم اختيار إجابة
+                nextBtn.style.display = 'none';
+                
+                // مسح التعليقات السابقة
+                feedbackElement.textContent = '';
+                feedbackElement.className = 'feedback';
+                
+                // إظهار زر الحفظ
+                saveBtn.style.display = 'flex';
+            }
+            
+            function selectAnswer(selectedIndex) {
+                const question = questions[currentQuestionIndex];
+                const answerButtons = answersElement.querySelectorAll('.answer-btn');
+                
+                // منع اختيار أكثر من إجابة
+                answerButtons.forEach(button => {
+                    button.removeEventListener('click', selectAnswer);
+                    button.style.cursor = 'default';
+                });
+                
+                // تحديث حالة السؤال بأنه تمت الإجابة عليه
+                answeredQuestions[currentQuestionIndex] = true;
+                updateProgressDots();
+                
+                // التحقق من الإجابة
+                if (selectedIndex === question.correctIndex) {
+                    answerButtons[selectedIndex].classList.add('correct');
+                    feedbackElement.textContent = 'إجابة صحيحة! أحسنت!';
+                    feedbackElement.classList.add('correct');
+                    score++;
+                } else {
+                    answerButtons[selectedIndex].classList.add('incorrect');
+                    answerButtons[question.correctIndex].classList.add('correct');
+                    feedbackElement.textContent = 'الإجابة الصحيحة: ' + question.answers[question.correctIndex];
+                    feedbackElement.classList.add('incorrect');
+                }
+                
+                // إظهار زر التالي
+                nextBtn.style.display = 'flex';
+            }
+            
+            function nextQuestion() {
+                currentQuestionIndex++;
+                
+                if (currentQuestionIndex < questions.length) {
+                    showQuestion();
+                } else {
+                    finishQuiz();
+                }
+            }
+            
+            function finishQuiz() {
+                clearInterval(timerInterval);
+                
+                quizContainer.style.display = 'none';
+                resultsContainer.style.display = 'block';
+                
+                const percentage = Math.round((score / questions.length) * 100);
+                scoreValueElement.textContent = `${percentage}%`;
+                correctAnswersElement.textContent = `الإجابات الصحيحة: ${score}/${questions.length}`;
+                certificateScoreElement.textContent = `${percentage}%`;
+                certificateDateElement.textContent = new Date().toLocaleDateString('ar-SA');
+                
+                // تحديد الرسالة بناء على النتيجة
+                let message = '';
+                let ranking = '';
+                
+                if (percentage >= 90) {
+                    message = 'ممتاز! لديك معرفة رائعة بالسيرة النبوية';
+                    ranking = '<div class="ranking-badge ranking-gold">مستوى ذهبي</div>';
+                } else if (percentage >= 70) {
+                    message = 'جيد جداً! لديك معرفة جيدة بالسيرة النبوية';
+                    ranking = '<div class="ranking-badge ranking-silver">مستوى فضى</div>';
+                } else if (percentage >= 50) {
+                    message = 'ليس سيئاً! يمكنك تحسين معرفتك بالسيرة النبوية';
+                    ranking = '<div class="ranking-badge ranking-bronze">مستوى برونزي</div>';
+                } else {
+                    message = 'تحتاج إلى تحسين معرفتك بالسيرة النبوية';
+                    ranking = '<div class="ranking-badge">需要改进</div>';
+                }
+                
+                scoreMessageElement.textContent = message;
+                scoreMessageElement.style.color = percentage >= 50 ? '#2E7D32' : '#D32F2F';
+                rankingBadgeElement.innerHTML = ranking;
+                
+                // حفظ النتيجة
+                saveScore(percentage);
+                
+                // مسح التقدم المحفوظ بعد إنهاء الاختبار
+                localStorage.removeItem('quizProgress');
+            }
+            
+            function saveScore(percentage) {
+                const scoreData = {
+                    score: percentage,
+                    correctAnswers: score,
+                    totalQuestions: questions.length,
+                    date: new Date().toLocaleDateString('ar-SA')
+                };
+                
+                highScores.push(scoreData);
+                
+                // ترتيب النتائج تنازلياً
+                highScores.sort((a, b) => b.score - a.score);
+                
+                // حفظ أفضل 5 نتائج فقط
+                if (highScores.length > 5) {
+                    highScores = highScores.slice(0, 5);
+                }
+                
+                localStorage.setItem('highScores', JSON.stringify(highScores));
+                updateHighScoresList();
+            }
+            
+            function loadHighScores() {
+                const savedScores = localStorage.getItem('highScores');
+                if (savedScores) {
+                    highScores = JSON.parse(savedScores);
+                }
+            }
+            
+            function updateHighScoresList() {
+                highScoresList.innerHTML = '';
+                
+                if (highScores.length === 0) {
+                    highScoresList.innerHTML = '<p>لا توجد نتائج سابقة</p>';
+                    return;
+                }
+                
+                highScores.forEach((scoreData, index) => {
+                    const scoreItem = document.createElement('div');
+                    scoreItem.classList.add('score-item');
+                    scoreItem.innerHTML = `
+                        <span>${index + 1}. ${scoreData.score}%</span>
+                        <span>${scoreData.date}</span>
+                    `;
+                    highScoresList.appendChild(scoreItem);
+                });
+            }
+            
+            function downloadCertificate() {
+                // هذه وظيفة تجريبية لتحميل الشهادة
+                alert('سيتم تحميل شهادة الإنجاز. هذه الميزة قيد التطوير.');
+                // في التطبيق الحقيقي، يمكن استخدام مكتبة مثل jsPDF لإنشاء PDF
+            }
+            
+            // تهيئة التطبيق عند التحميل
+            initApp();
+        });
+    </script>
+</body>
+</html>
